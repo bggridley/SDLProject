@@ -1,0 +1,125 @@
+BRAINSTORMING FOR THE ENTIRE PROJECT:
+1) literally just recreate trilandia and make it better and make better lighting and stuff
+
+2) don't just recreate trilandia, but replicate it on a smaller scale and then add the physics principles and stuff to it
+
+3) literally just recreate trilandia, and add like launchers and stuff and a rocket
+
+
+
+
+TODO LIST:
+
+- SAT collisions
+- a save / load system
+- re-implement the procedural generation that you made in trilandia but make it better maybe?
+- rocket launcher / projectile?
+- entities like cows and sheep and cats!! ( meow)
+- health system
+- guns
+- battle royale
+- multiplayer? using winSOCK or maybe a cross platform thing (easily done for the Magnum physics engine)
+- bosses?)
+- a feature like in 7 days to die where you right click and it breaks blocks, so maybe this one will break 3 tall or however tall the character is
+
+DEV LOG:
+
+3/26/20: Fixed collision detection, still is an error on the corners...
+3/27/20: Bitmap Font, added color to chunk VBO
+3/28: Fixed errors on the collision detections, made it perfect :)).
+3/29: Chunk loading system, can create very large worlds with no rendering issues at all, still getting 900+ fps on laptop
+3/30: Created Main Menu Gui, Renderer class, fixed weird GlPopMatrix and glPushMatrix issues.
+3/31: added audio, added entity class system, added entities fading out
+4/1: Inventory system
+4/2: Bullets rotating
+4/5: Lighting system
+4/6 -- INFINITY - proper SAT collisions with a good response with corner handligng.
+ - TO DO:
+ 4/28 - just kidding.. the previous SAT collisions were not good.  I had to redo it and have now found a better solution.
+ - gun
+ - beam
+ - animation
+ - rotation collisions
+-w orking on : ENTITY COLLISIONS
+
+
+Goals: Create items, add entity collision ( easy, just copy paste from old code ) (maybe blood??), fix all code and make sure encapsulation is everywhere, i hate when it is not encapsulated u know?
+ - also : player animation, 
+4/1: Resource manager?  keep everything in one place u know...
+ 3/33: 
+
+
+ WAY TO IMPLEMENT SAT PROPERLY TO GET THE BEST COLLISIONS:
+
+divide up the velocity into smaller increments. so instead of testing just x + vx to x + (vx that is a small increment of total vx.)
+
+proceed to the reponse stage.  then check again if there are no more collisions.
+
+in the SEARCH phase of the collison detection... 
+
+add all of the collisions at one VELOCITY step to a list, call it active_collisions.
+
+
+
+find the distance to the player.. (distance in terms of distance to the CLOSEST POINT (x + minx, y + miny) etc.)
+
+
+//
+
+THEN: find the tile that is the closest. for each x and y.
+
+
+
+
+or... since it's with tilse... simply:
+
+find all the possible collisions
+
+
+bool solved;
+
+for( each collision ) { 
+
+do the collision response (and cancel out corner tiles)
+
+test the reponse... does it collide?
+
+if it collides still..
+
+then revert the position to what it was before.
+
+else
+
+bool solved = true;
+
+}
+
+
+if(solved) {
+change the vx and the vy arrordingly...  if there is a y collision... reset the vy.. x collision, reset vx.
+if it's a corner collision.... i guess jusst don't reseta nything
+} else {
+
+
+for (each collision) {
+
+if(is corner collision) {
+apply a straight vector that is perpendicular to the tile it hit
+
+
+imagine this:
+
+\   \ |____|
+ \   \|____|
+  \   \    
+  ^^^^^^^^^^^^^^^^
+}
+
+}
+
+}
+
+
+
+
+
